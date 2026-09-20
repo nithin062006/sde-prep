@@ -1,0 +1,139 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>HLD / System Design Master Sheet</title>
+<style>
+:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);
+--bg:#f6f7f9;--card:#fff;--fg:#14171f;--mut:#6b7280;--line:#e3e6ec;--acc:#0e8a6d;--ok:#15803d;--okbg:#e9f6ed;
+--ez:#0e7a5f;--me:#a86300;--hd:#c0392b;--chip:#eef1f6;--star:#e0a300}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0e1117;--card:#161b22;--fg:#e6edf3;--mut:#9099a6;
+--line:#262d38;--acc:#34d399;--ok:#4ade80;--okbg:#15301f;--ez:#3fb98a;--me:#e0a94a;--hd:#f0736a;--chip:#222934;--star:#f0c23c}}
+:root[data-theme="dark"]{--bg:#0e1117;--card:#161b22;--fg:#e6edf3;--mut:#9099a6;--line:#262d38;--acc:#34d399;--ok:#4ade80;
+--okbg:#15301f;--ez:#3fb98a;--me:#e0a94a;--hd:#f0736a;--chip:#222934;--star:#f0c23c}
+*,*::before,*::after{box-sizing:inherit}
+html{scroll-padding-top:calc(env(safe-area-inset-top,0px) + 130px)}
+body{margin:0;background:var(--bg);color:var(--fg);font:15px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Roboto,Helvetica,Arial,sans-serif}
+.wrap{max-width:1100px;margin:0 auto;padding:16px 13px 80px}
+a.back{color:var(--mut);font-size:12.5px;text-decoration:none}
+h1{font-size:21px;margin:8px 0 2px;letter-spacing:-.3px}
+.sub{color:var(--mut);font-size:12.5px;margin-bottom:12px}
+.bar{height:9px;background:var(--chip);border-radius:99px;overflow:hidden}.bar>i{display:block;height:100%;background:var(--acc);width:0}
+.stats{display:flex;flex-wrap:wrap;gap:8px;margin:9px 0 2px;font-size:12px;color:var(--mut)}.stats b{color:var(--fg)}
+.ctrl{position:sticky;top:env(safe-area-inset-top,0px);z-index:9;background:var(--bg);padding:9px 0 8px;border-bottom:1px solid var(--line);margin-bottom:10px}
+.row{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+input[type=search],select{background:var(--card);color:var(--fg);border:1px solid var(--line);border-radius:9px;padding:7px 10px;font-size:14px;font-family:inherit}
+input[type=search]{flex:1;min-width:160px}
+.chip{border:1px solid var(--line);background:var(--card);color:var(--mut);border-radius:99px;padding:5px 11px;font-size:12.5px;cursor:pointer;font-family:inherit}
+.chip[aria-pressed=true]{background:var(--acc);border-color:var(--acc);color:#fff}
+.grp{background:var(--card);border:1px solid var(--line);border-radius:13px;margin-bottom:10px;overflow:hidden}
+.ghead{display:flex;gap:10px;align-items:center;padding:11px 13px;cursor:pointer;user-select:none}
+.ghead h2{font-size:14.5px;margin:0;flex:1;font-weight:600}
+.ghead small{color:var(--mut);font-size:11.5px;white-space:nowrap}
+.mini{width:56px;height:6px;background:var(--chip);border-radius:99px;overflow:hidden;flex:none}.mini>i{display:block;height:100%;background:var(--ok)}
+.note{font-size:12.5px;color:var(--mut);padding:0 13px 10px;border-bottom:1px solid var(--line);line-height:1.55}
+.note b{color:var(--fg);font-weight:600}
+.pre{display:flex;flex-wrap:wrap;gap:4px;align-items:center;margin-top:5px}
+.pre em{font-style:normal;font-size:11px;color:var(--mut)}
+.pl{font-size:11px;border:1px solid var(--line);border-radius:6px;padding:1px 6px;cursor:pointer;background:var(--chip);color:var(--fg)}
+.p{padding:9px 13px;border-top:1px solid var(--line)}
+.p.done{background:var(--okbg)}
+.phead{display:flex;gap:8px;align-items:flex-start}
+.cb{width:17px;height:17px;margin-top:3px;accent-color:var(--ok);flex:none;cursor:pointer}
+.ttl{font-weight:500;font-size:14.5px;flex:1}.p.done .ttl{text-decoration:line-through;opacity:.6}
+.tags{display:flex;flex-wrap:wrap;gap:4px;margin-top:4px;align-items:center}
+.pill{font-size:10.5px;border-radius:5px;padding:2px 6px;background:var(--chip);color:var(--mut);font-weight:600}
+.Easy{color:var(--ez)}.Medium{color:var(--me)}.Hard{color:var(--hd)}
+.pat{background:transparent;border:1px solid var(--acc);color:var(--acc);cursor:pointer;font-family:inherit}
+.star{border:0;background:none;font-size:16px;cursor:pointer;color:var(--line);padding:2px;line-height:1;float:right}
+.star[aria-pressed=true]{color:var(--star)}
+.req{font-size:12.5px;color:var(--mut);margin:6px 0 0 25px;line-height:1.6}
+.req li{margin-bottom:1px}
+.links{display:flex;gap:4px;flex-wrap:wrap;align-items:center;margin:6px 0 0 25px}
+.lk{font-size:11.5px;text-decoration:none;border:1px solid var(--line);border-radius:7px;padding:3px 8px;color:var(--fg);background:var(--card);white-space:nowrap}
+.lk:hover{border-color:var(--acc);color:var(--acc)}
+.foot{color:var(--mut);font-size:11.5px;margin-top:16px;line-height:1.7}
+.empty{padding:26px;text-align:center;color:var(--mut)}
+@media(max-width:560px){.wrap{padding:13px 9px 70px}}
+</style></head><body><div class="wrap">
+</head><body><div class="wrap">
+<a class="back" href="index.html">← Ultimate SDE Prep Hub</a>
+<h1>HLD / System Design Master Sheet</h1>
+<div class="sub" id="sub"></div>
+<div class="bar"><i id="pb"></i></div><div class="stats" id="stats"></div>
+<div class="ctrl">
+<div class="row">
+<input type="search" id="q" placeholder="Search concept or case study…">
+<select id="gby"><option value="cat">Group: category</option><option value="node">Group: building block</option><option value="d">Group: difficulty</option></select>
+<select id="fstat"><option value="">All</option><option value="todo">Unsolved</option><option value="done">Solved</option><option value="rev">Starred</option></select>
+</div></div>
+<div id="list"></div><div class="foot" id="foot"></div></div>
+<script>
+const D={"meta":{"nodes":24,"cases":23,"solved":8},"nodes":[{"id":"perf-scale","n":"Performance vs Scalability","g":"Foundations","pre":[],"cue":"Performance = fast for one user. Scalability = stays fast as load grows. A system can be fast at low load and still not scale.","link":"https://github.com/donnemartin/system-design-primer/blob/master/README.md#performance-vs-scalability"},{"id":"lat-thr","n":"Latency vs Throughput","g":"Foundations","pre":[],"cue":"Latency = time for one request. Throughput = requests handled per unit time. Optimising one can hurt the other (batching raises throughput, adds latency).","link":"https://github.com/donnemartin/system-design-primer/blob/master/README.md#latency-vs-throughput"},{"id":"cap","n":"CAP Theorem","g":"Foundations","pre":["lat-thr"],"cue":"Under a network partition you must choose Consistency or Availability — you cannot have both plus partition tolerance. Frame every distributed-store choice through this.","link":"https://github.com/donnemartin/system-design-primer/blob/master/README.md#cap-theorem"},{"id":"consistency-pat","n":"Consistency Patterns","g":"Foundations","pre":["cap"],"cue":"Weak (may not see latest write), eventual (will converge given time), strong (always latest) — pick per field, not per system: usernames need strong, view counts can be eventual.","link":"https://github.com/donnemartin/system-design-primer/blob/master/README.md#consistency-patterns"},{"id":"availability-pat","n":"Availability Patterns","g":"Foundations","pre":["cap"],"cue":"Fail-over (active-passive/active-active) and replication are how you buy nines — know the '9s' table (99.9% = ~8.7h/yr down) cold.","link":"https://github.com/donnemartin/system-design-primer/blob/master/README.md#availability-patterns"},{"id":"dns","n":"DNS","g":"Networking","pre":[],"cue":"Translates domain to IP before anything else happens — also where you plug in geo-routing and weighted traffic splitting.","link":"https://github.com/donnemartin/system-design-primer/blob/master/README.md#domain-name-system"},{"id":"cdn","n":"CDN","g":"Networking","pre":["dns"],"cue":"Serve static (and increasingly dynamic) content from edge nodes near the user — push CDN (you upload) vs pull CDN (first request populates cache).","link":"https://github.com/donnemartin/system-design-primer/blob/master/README.md#content-delivery-network"},{"id":"load-balancer","n":"Load Balancer","g":"Networking","pre":["dns"],"cue":"Distributes traffic across servers — L4 (transport, fast, IP+port only) vs L7 (application, content-aware routing); enables horizontal scaling by removing the single-server bottleneck.","link":"https://github.com/donnemartin/system-design-primer/blob/master/README.md#load-balancer"},{"id":"reverse-proxy","n":"Reverse Proxy","g":"Networking","pre":["load-balancer"],"cue":"Sits in front of servers for SSL termination, compression, caching, and routing — a load balancer with one backend is basically a reverse proxy.","link":"https://github.com/donnemartin/system-design-primer/blob/master/README.md#reverse-proxy-web-server"},{"id":"app-layer","n":"Application Layer & Microservices","g":"Application","pre":["reverse-proxy"],"cue":"Separating the web layer from the app layer lets you scale each independently — microservices trade simplicity for independent scaling/deployment, at the cost of network calls and service discovery.","link":"https://github.com/donnemartin/system-design-primer/blob/master/README.md#application-layer"},{"id":"rdbms","n":"RDBMS","g":"Databases","pre":[],"cue":"Structured schema, ACID transactions, joins — the default until a specific requirement (scale, flexible schema, graph traversal) says otherwise.","link":"https://github.com/donnemartin/system-design-primer/blob/master/README.md#relational-database-management-system-rdbms"},{"id":"replication","n":"Replication (Master-Slave / Master-Master)","g":"Databases","pre":["rdbms"],"cue":"Copy data across nodes for read scaling and failover — master-slave (single write point, simple) vs master-master (multiple write points, conflict resolution needed).","link":"https://github.com/donnemartin/system-design-primer/blob/master/README.md#master-slave-replication"},{"id":"federation","n":"Federation","g":"Databases","pre":["replication"],"cue":"Split by function into multiple databases (users DB, products DB) — reduces read/write traffic per DB, no cross-DB joins.","link":"https://github.com/donnemartin/system-design-primer/blob/master/README.md#federation"},{"id":"sharding","n":"Sharding","g":"Databases","pre":["federation"],"cue":"Split one logical table across nodes by a shard key — this is the go-to answer whenever an interviewer says 'now assume 1 billion rows'.","link":"https://github.com/donnemartin/system-design-primer/blob/master/README.md#sharding"},{"id":"denorm","n":"Denormalization","g":"Databases","pre":["sharding"],"cue":"Duplicate data to avoid expensive joins after sharding — trades write complexity and storage for read speed.","link":"https://github.com/donnemartin/system-design-primer/blob/master/README.md#denormalization"},{"id":"nosql","n":"NoSQL Families","g":"Databases","pre":["rdbms"],"cue":"Key-value (Redis/DynamoDB), document (MongoDB), wide-column (Cassandra/BigTable), graph (Neo4j) — each optimises a different access pattern, not 'more scalable SQL'.","link":"https://github.com/donnemartin/system-design-primer/blob/master/README.md#nosql"},{"id":"sql-nosql","n":"SQL vs NoSQL Decision","g":"Databases","pre":["nosql","sharding"],"cue":"Choose SQL for relational integrity/joins/transactions; NoSQL for horizontal scale, flexible/evolving schema, or a specific access pattern (huge write volume, graph traversal).","link":"https://github.com/donnemartin/system-design-primer/blob/master/README.md#sql-or-nosql"},{"id":"cache","n":"Caching","g":"Performance","pre":["replication"],"cue":"Add a cache at every layer (client, CDN, web server, DB query, application object) — the single highest-leverage way to cut latency and DB load.","link":"https://github.com/donnemartin/system-design-primer/blob/master/README.md#cache"},{"id":"cache-invalid","n":"Cache Invalidation Strategies","g":"Performance","pre":["cache"],"cue":"Cache-aside (app manages it, lazy-loaded), write-through (write to cache+DB together, consistent but slower writes), write-behind (write to cache, async to DB, fast but riskier), refresh-ahead (pre-emptively refresh before expiry).","link":"https://github.com/donnemartin/system-design-primer/blob/master/README.md#when-to-update-the-cache"},{"id":"async","n":"Asynchronism & Message Queues","g":"Scaling Patterns","pre":["cache"],"cue":"Decouple slow work from the request path — message queues (task handed off, producer doesn't wait) and task queues (scheduled/background jobs); back-pressure protects the system when producers outpace consumers.","link":"https://github.com/donnemartin/system-design-primer/blob/master/README.md#asynchronism"},{"id":"comm-proto","n":"Communication Protocols (TCP/UDP/RPC/REST)","g":"Networking","pre":[],"cue":"TCP (reliable, ordered, connection-based) vs UDP (fast, no guarantee — video/gaming); RPC (function-call semantics, tighter coupling) vs REST (resource-based, cacheable, looser coupling).","link":"https://github.com/donnemartin/system-design-primer/blob/master/README.md#communication"},{"id":"rate-limit","n":"Rate Limiting","g":"Scaling Patterns","pre":["cache"],"cue":"Token bucket (bursty traffic allowed up to bucket size), leaky bucket (smooths to constant rate), fixed/sliding window counters — protects backends from abuse and cascading overload.","link":"https://stripe.com/blog/rate-limiters"},{"id":"consistent-hash","n":"Consistent Hashing","g":"Scaling Patterns","pre":["sharding","load-balancer"],"cue":"Adding/removing a node only remaps ~1/N of keys instead of all of them — the mechanism behind sharding, distributed caches, and CDN node selection at scale.","link":"https://github.com/donnemartin/system-design-primer/blob/master/README.md#sharding"},{"id":"security","n":"Security Basics","g":"Foundations","pre":["comm-proto"],"cue":"Encrypt in transit (TLS) and at rest, principle of least privilege, sanitize input against injection/XSS, rate-limit auth endpoints against brute force.","link":"https://github.com/donnemartin/system-design-primer/blob/master/README.md#security"}],"cases":[{"slug":"pastebin","t":"Design Pastebin.com (or Bit.ly)","d":"Medium","pre":["sharding","rdbms","cache"],"link":"https://github.com/donnemartin/system-design-primer/blob/master/solutions/system_design/pastebin/README.md","solved":true},{"slug":"twitter","t":"Design the Twitter Timeline & Search (or Facebook Feed)","d":"Hard","pre":["sharding","cache","async","nosql"],"link":"https://github.com/donnemartin/system-design-primer/blob/master/solutions/system_design/twitter/README.md","solved":true},{"slug":"web-crawler","t":"Design a Web Crawler","d":"Hard","pre":["consistent-hash","async","nosql"],"link":"https://github.com/donnemartin/system-design-primer/blob/master/solutions/system_design/web_crawler/README.md","solved":true},{"slug":"mint","t":"Design Mint.com","d":"Medium","pre":["async","rdbms","security"],"link":"https://github.com/donnemartin/system-design-primer/blob/master/solutions/system_design/mint/README.md","solved":true},{"slug":"social-graph","t":"Design the Data Structures for a Social Network","d":"Hard","pre":["nosql","sharding"],"link":"https://github.com/donnemartin/system-design-primer/blob/master/solutions/system_design/social_graph/README.md","solved":true},{"slug":"kv-store","t":"Design a Key-Value Store for a Search Engine","d":"Hard","pre":["consistent-hash","nosql","replication"],"link":"https://github.com/donnemartin/system-design-primer/blob/master/solutions/system_design/query_cache/README.md","solved":true},{"slug":"sales-rank","t":"Design Amazon's Sales Ranking by Category","d":"Medium","pre":["async","cache","sharding"],"link":"https://github.com/donnemartin/system-design-primer/blob/master/solutions/system_design/sales_rank/README.md","solved":true},{"slug":"scaling-aws","t":"Design a System that Scales to Millions of Users on AWS","d":"Medium","pre":["load-balancer","cdn","cache","replication"],"link":"https://github.com/donnemartin/system-design-primer/blob/master/solutions/system_design/scaling_aws/README.md","solved":true},{"slug":"url-shortener","t":"Design a URL Shortener like TinyURL","d":"Easy","pre":["sharding","cache"],"link":"https://algomaster.io/learn/lld/design-url-shortener","solved":false},{"slug":"rate-limiter-sys","t":"Design an API Rate Limiter","d":"Medium","pre":["rate-limit"],"link":"https://www.hellointerview.com/learn/system-design/problem-breakdowns/distributed-rate-limiter","solved":false},{"slug":"whatsapp","t":"Design a Chat App like WhatsApp","d":"Hard","pre":["async","consistent-hash","comm-proto"],"link":"https://dev.to/karanpratapsingh/system-design-whatsapp-fld","solved":false},{"slug":"instagram","t":"Design a Picture-Sharing System like Instagram","d":"Hard","pre":["cdn","sharding","async"],"link":"https://algomaster.io/learn/system-design-interviews/design-instagram","solved":false},{"slug":"newsfeed","t":"Design the Facebook News Feed","d":"Hard","pre":["async","cache","nosql"],"link":"https://www.hellointerview.com/learn/system-design/problem-breakdowns/fb-news-feed","solved":false},{"slug":"dropbox","t":"Design a File Sync Service like Dropbox","d":"Hard","pre":["sharding","async","consistent-hash"],"link":"https://www.hellointerview.com/learn/system-design/problem-breakdowns/dropbox","solved":false},{"slug":"redis-kv","t":"Design a Distributed Key-Value Store like Redis","d":"Hard","pre":["nosql","consistent-hash","replication"],"link":"https://www.hellointerview.com/learn/system-design/deep-dives/redis","solved":false},{"slug":"memcached","t":"Design a Distributed Cache like Memcached","d":"Medium","pre":["cache","consistent-hash"],"link":"https://www.hellointerview.com/learn/system-design/problem-breakdowns/distributed-cache","solved":false},{"slug":"search-engine","t":"Design a Search Engine like Google","d":"Hard","pre":["sharding","async","nosql"],"link":"https://www.hellointerview.com/learn/system-design/problem-breakdowns/fb-post-search","solved":false},{"slug":"gdocs","t":"Design Google Docs (Collaborative Editing)","d":"Hard","pre":["async","consistency-pat"],"link":"https://www.hellointerview.com/learn/system-design/problem-breakdowns/google-docs","solved":false},{"slug":"snowflake","t":"Design a Distributed Unique ID Generator (Snowflake)","d":"Medium","pre":["sharding","consistent-hash"],"link":"https://blog.x.com/engineering/en_us/a/2010/announcing-snowflake","solved":false},{"slug":"trending","t":"Design a Trending-Topics System like Twitter's","d":"Medium","pre":["async","cache"],"link":"http://www.michael-noll.com/blog/2013/01/18/implementing-real-time-trending-topics-in-storm/","solved":false},{"slug":"recommend","t":"Design a Recommendation System like Amazon's","d":"Hard","pre":["async","nosql"],"link":"http://ijcai13.org/files/tutorial_slides/td3.pdf","solved":false},{"slug":"multidc","t":"Design a System Serving Data from Multiple Data Centers","d":"Hard","pre":["consistency-pat","availability-pat","dns"],"link":"http://highscalability.com/blog/2009/8/24/how-google-serves-data-from-multiple-datacenters.html","solved":false},{"slug":"stock-exchange","t":"Design a Stock Exchange like NASDAQ/Binance","d":"Hard","pre":["comm-proto","consistency-pat"],"link":"http://bhomnick.net/building-a-simple-limit-order-in-go/","solved":false}]},NODES={},K='hld-sheet-v1';
+D.nodes.forEach(n=>NODES[n.id]=n);
+const CAT_ORDER=['Foundations','Networking','Application','Databases','Performance','Scaling Patterns','Case Studies'];
+let S={done:{},rev:{},open:{}};try{const r=localStorage.getItem(K);if(r)S=Object.assign(S,JSON.parse(r))}catch(e){}
+const save=()=>{try{localStorage.setItem(K,JSON.stringify(S))}catch(e){}};
+const F={q:'',stat:'',gby:'cat',node:''};
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&lt;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const items=[];
+D.nodes.forEach(n=>items.push({id:'n_'+n.id,t:n.n,d:'',cat:n.g,node:n.id,pre:[],link:n.link,desc:n.cue,
+  hay:(n.n+' '+n.cue).toLowerCase()}));
+D.cases.forEach((c,i)=>items.push({id:'c'+i,t:c.t,d:c.d,cat:'Case Studies',pre:c.pre,link:c.link,solved:c.solved,
+  hay:(c.t+' '+c.pre.map(x=>(NODES[x]||{}).n||'').join(' ')).toLowerCase()}));
+function pass(x){
+ if(F.q&&!x.hay.includes(F.q))return false;
+ if(F.node&&x.node!==F.node&&!(x.pre||[]).includes(F.node))return false;
+ const k=x.id;
+ if(F.stat==='done'&&!S.done[k])return false;
+ if(F.stat==='todo'&&S.done[k])return false;
+ if(F.stat==='rev'&&!S.rev[k])return false;
+ return true}
+function gkey(x){
+ if(F.gby==='d')return[x.d||'Concept',x.d||'Concept'];
+ if(F.gby==='node')return x.node?[x.node,x.t]:['_cases','Case Studies'];
+ return[x.cat,x.cat]}
+function nodeNote(nid){const n=NODES[nid];if(!n)return'';
+ return `<div class="note"><b>${esc(n.cue)}</b>${n.link?` — <a class="lk" style="margin-left:4px" target="_blank" href="${n.link}">read</a>`:''}
+ ${n.pre.length?`<div class="pre"><em>Learn first:</em>${n.pre.map(q=>`<button class="pl" data-j="${q}">${esc((NODES[q]||{}).n||q)}</button>`).join('')}</div>`:''}</div>`}
+function render(){
+ const vis=items.filter(pass),el=document.getElementById('list');
+ if(!vis.length){el.innerHTML='<div class="empty">Nothing matches.</div>';stats(0);return}
+ const gs=new Map();vis.forEach(x=>{const[k,l]=gkey(x);if(!gs.has(k))gs.set(k,{l,a:[]});gs.get(k).a.push(x)});
+ const order=F.gby==='cat'?[...gs.keys()].sort((a,b)=>CAT_ORDER.indexOf(a)-CAT_ORDER.indexOf(b)):[...gs.keys()];
+ let h='';
+ for(const gid of order){const g=gs.get(gid);
+  const all=items.filter(x=>gkey(x)[0]===gid),dn=all.filter(x=>S.done[x.id]).length,op=S.open[gid]!==false;
+  h+=`<section class="grp"><div class="ghead" data-g="${esc(gid)}"><span>${op?'▾':'▸'}</span><h2>${esc(g.l)}</h2>
+  <div class="mini"><i style="width:${all.length?dn/all.length*100:0}%"></i></div><small>${dn}/${all.length}</small></div>`;
+  if(op){ if(F.gby==='node'&&NODES[gid]) h+=nodeNote(gid); h+='<div>';
+   g.a.forEach(x=>{
+    h+=`<div class="p${S.done[x.id]?' done':''}"><div class="phead"><input class="cb" type="checkbox" data-k="${x.id}"${S.done[x.id]?' checked':''}>
+    <span class="ttl">${esc(x.t)}</span><button class="star" data-r="${x.id}" aria-pressed="${!!S.rev[x.id]}">★</button></div>
+    <div class="tags" style="margin-left:25px">${x.d?`<span class="pill ${x.d}">${x.d}</span>`:''}
+    ${x.node&&x.desc?'':''}${(x.pre||[]).map(pid=>`<button class="pill pat" data-j="${pid}">${esc((NODES[pid]||{}).n||pid)}</button>`).join('')}
+    ${x.solved===false?'<span class="pill">reference article</span>':x.solved===true?'<span class="pill">worked solution</span>':''}</div>
+    ${x.node&&x.desc?`<div class="req" style="margin-top:6px">${esc(x.desc)}</div>`:''}
+    <div class="links">${x.link?`<a class="lk" target="_blank" href="${x.link}">${x.node?'Read':'Solution / reference'}</a>`:''}</div>
+    </div>`});
+   h+='</div>'}
+  h+='</section>'}
+ el.innerHTML=h;stats(vis.length)}
+function stats(n){
+ const dn=items.filter(x=>S.done[x.id]).length;
+ document.getElementById('pb').style.width=(dn/items.length*100)+'%';
+ document.getElementById('stats').innerHTML=`<span>Done <b>${dn}/${items.length}</b></span>
+ <span>Building blocks <b>${D.meta.nodes}</b></span><span>Case studies <b>${D.meta.cases}</b></span>
+ <span>Fully worked <b>${D.meta.solved}</b></span><span>Starred <b>${Object.values(S.rev).filter(Boolean).length}</b></span>
+ ${n!==undefined?`<span>Showing <b>${n}</b></span>`:''}`}
+document.getElementById('sub').textContent=`${D.meta.nodes} building blocks (DNS→CDN→load balancer→databases→caching→async→consistent hashing) with prerequisite chains, plus ${D.meta.cases} case studies — ${D.meta.solved} with fully worked solutions, the rest with primary-source reference architectures (engineering blogs, official write-ups).`;
+document.getElementById('list').addEventListener('click',e=>{
+ const j=e.target.closest('[data-j]');
+ if(j){F.node=j.dataset.j;F.gby='node';document.getElementById('gby').value='node';S.open[F.node]=true;render();window.scrollTo({top:0});return}
+ const hd=e.target.closest('.ghead');if(hd){const g=hd.dataset.g;S.open[g]=S.open[g]===false;save();render();return}
+ const st=e.target.closest('.star');if(st){S.rev[st.dataset.r]=!S.rev[st.dataset.r];save();render()}});
+document.getElementById('list').addEventListener('change',e=>{if(e.target.classList.contains('cb')){S.done[e.target.dataset.k]=e.target.checked;save();render()}});
+document.getElementById('q').addEventListener('input',e=>{F.q=e.target.value.trim().toLowerCase();F.node='';render()});
+document.getElementById('gby').addEventListener('change',e=>{F.gby=e.target.value;F.node='';render()});
+document.getElementById('fstat').addEventListener('change',e=>{F.stat=e.target.value;render()});
+document.getElementById('foot').innerHTML=`Building-block concepts sourced from donnemartin/system-design-primer (CC BY-SA); 8 case studies link to that repo's fully worked solutions, the remaining case studies link to the original architecture write-ups (company engineering blogs, primary sources) since no single repo has worked solutions for all of them. Approach every case study as: use cases & constraints → high-level design → deep-dive on the bottleneck → scale it, using the linked building blocks. Progress lives in this browser only.`;
+render();
+</script></body></html>

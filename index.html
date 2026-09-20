@@ -1,0 +1,53 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Ultimate SDE Prep Hub</title>
+<style>
+:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);
+--bg:#f6f7f9;--card:#fff;--fg:#14171f;--mut:#6b7280;--line:#e3e6ec}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0e1117;--card:#161b22;--fg:#e6edf3;--mut:#9099a6;--line:#262d38}}
+:root[data-theme="dark"]{--bg:#0e1117;--card:#161b22;--fg:#e6edf3;--mut:#9099a6;--line:#262d38}
+*,*::before,*::after{box-sizing:inherit}
+body{margin:0;background:var(--bg);color:var(--fg);font:15px/1.55 -apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Roboto,Helvetica,Arial,sans-serif}
+.wrap{max-width:840px;margin:0 auto;padding:28px 16px 60px}
+h1{font-size:24px;margin:0 0 4px;letter-spacing:-.4px}
+.sub{color:var(--mut);font-size:13.5px;margin-bottom:22px;line-height:1.6}
+.card{display:block;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:18px 18px;margin-bottom:14px;text-decoration:none;color:var(--fg)}
+.card:hover{border-color:#8888;}
+.top{display:flex;align-items:center;gap:12px}
+.ico{font-size:26px;line-height:1}
+.ttl{font-size:17px;font-weight:700}
+.n{color:var(--mut);font-size:12.5px;margin-top:2px}
+.desc{color:var(--mut);font-size:13.5px;margin-top:10px;line-height:1.6}
+.stat{display:flex;gap:14px;margin-top:12px;font-size:11.5px;color:var(--mut);flex-wrap:wrap}
+.stat b{color:var(--fg)}
+.order{display:flex;gap:8px;align-items:center;margin:26px 0 10px}
+.order .l{flex:1;height:1px;background:var(--line)}
+.order span{font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--mut);white-space:nowrap}
+.foot{color:var(--mut);font-size:11.5px;margin-top:20px;line-height:1.7}
+.foot a{color:inherit}
+</style></head><body><div class="wrap">
+<h1>Ultimate SDE Prep Hub</h1>
+<div class="sub">Three linked sheets covering everything a top-tier SDE loop tests: coding, object-oriented design, and system design. Each opens as its own fast, focused tracker — progress is saved per-sheet in your browser.</div>
+
+<div class="order"><span>Foundational — do first</span><div class="l"></div></div>
+<a class="card" href="dsa-sheet.html" target="_blank">
+<div class="top"><span class="ico">🧠</span><div><div class="ttl">The Ultimate DSA Sheet</div><div class="n">Coding round prep</div></div></div>
+<div class="desc">Striver's A2Z (all 19 steps) + SDE Sheet merged, 768 company-tagged problems from Uber/Google/Meta/Amazon/Apple/Netflix/Microsoft frequency lists, the full 300-problem CSES set, and Codeforces rating ladders 1200→1900. 101 patterns with prerequisite chains.</div>
+<div class="stat"><span><b>1,720</b> problems</span><span><b>101</b> patterns</span><span>4 layers: A2Z+SDE, Company, CSES, Codeforces</span></div>
+</a>
+
+<div class="order"><span>Interview rounds — do after DSA basics are solid</span><div class="l"></div></div>
+<a class="card" href="lld-sheet.html" target="_blank">
+<div class="top"><span class="ico">🧩</span><div><div class="ttl">LLD / OOD Master Sheet</div><div class="n">Low-Level Design round — Amazon, Uber, and most senior loops</div></div></div>
+<div class="desc">OOP fundamentals → class relationships → SOLID → 22 GoF design patterns, each with a recognition cue and prerequisite chain (Interpreter deliberately excluded — a compiler/DSL pattern almost never asked in interviews). 33 OOD case-study problems (Parking Lot → Splitwise → Chess → Ride-Sharing) with requirements, UML diagrams and reference implementations in 6+ languages. Concurrency fundamentals plus 9 classic concurrency problems.</div>
+<div class="stat"><span><b>58</b> concept nodes</span><span><b>33</b> OOD problems</span><span><b>9</b> concurrency problems</span></div>
+</a>
+
+<a class="card" href="hld-sheet.html" target="_blank">
+<div class="top"><span class="ico">🏗️</span><div><div class="ttl">HLD / System Design Master Sheet</div><div class="n">System design round — mid-level and above at every top-tier company</div></div></div>
+<div class="desc">24 building blocks (DNS → CDN → load balancing → databases → sharding → caching → async → consistent hashing) with prerequisite chains, followed by 23 case studies — 8 fully worked (Pastebin, Twitter timeline, web crawler, key-value store...) and 15 more (TinyURL, WhatsApp, Instagram, rate limiter, Google Docs...) linked to primary-source architecture write-ups.</div>
+<div class="stat"><span><b>24</b> building blocks</span><span><b>23</b> case studies</span><span><b>8</b> fully worked</span></div>
+</a>
+
+<div class="foot">Deliberately out of scope: pure CS-fundamentals theory (OS/DBMS/CN as standalone Q&A) — per your call, that time is better spent on LLD/HLD since Uber/Google/Meta/Amazon/Microsoft rarely gate on it directly. Also out of scope: behavioral/resume prep, a different skill from all three of these — say the word if you want that added as a fourth sheet.<br><br>Each sheet's progress (checkboxes, stars) is stored independently in this browser via localStorage and does not sync across sheets or devices — use each sheet's Export button before switching browsers.</div>
+</div></body></html>
