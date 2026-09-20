@@ -40,8 +40,8 @@ git push -u origin main
 |---|---|
 | `index.html` | Hub — links to all three sheets |
 | `dsa-sheet.html` | 1,720 DSA problems: Striver A2Z + SDE Sheet, company-frequency lists (Uber/Google/Meta/Amazon/Apple/Netflix/Microsoft), CSES (300), Codeforces ladders (1200→1900). 101 patterns with prerequisite chains. |
-| `lld-sheet.html` | OOP → SOLID → 22 of the 23 GoF design patterns with prerequisite chains (Interpreter omitted — a compiler/DSL pattern that's essentially never asked in SDE interviews), 33 OOD case-study problems with requirements/UML/multi-language solutions, concurrency fundamentals + 9 problems. |
-| `hld-sheet.html` | 24 system-design building blocks with prerequisite chains, 23 case studies (8 fully worked, 15 linked to primary-source architecture write-ups). |
+| `lld-sheet.html` | OOP → SOLID → 22 of the 23 GoF design patterns with prerequisite chains (Interpreter omitted — a compiler/DSL pattern that's essentially never asked in SDE interviews), 38 OOD case-study problems with requirements/UML/multi-language solutions, concurrency fundamentals + 9 problems. |
+| `hld-sheet.html` | 31 system-design building blocks with prerequisite chains, 30 case studies (8 fully worked, 22 linked to primary-source architecture write-ups). |
 | `ultimate-sde-prep.xlsx` | The same data as a portable, filterable spreadsheet — import into Google Sheets via File → Import. Less interactive than the HTML sheets (no click-to-filter prerequisite chains), but works anywhere a spreadsheet does. |
 
 ## Notes on progress tracking
